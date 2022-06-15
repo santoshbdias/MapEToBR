@@ -1,0 +1,19 @@
+Package: MapEToBR
+Type: Package
+Title: Automatically model ETo FAO 56 map for all of Brazil for a given day
+Version: 0.0.0.9000
+Authors@R: c(person(given = "Santos H.",
+                    family = "B Dias",
+                    role = c("aut","cre"),
+                    email = "santoshbdias@gmail.com",
+                    comment = c(ORCID = "0000-0001-7800-5416")),
+            person(given = "Fabrício T.",
+                    family = "Barbosa",
+                    role = ("aut"),
+                    comment = c(ORCID = "0000-0000-0000-0000")))
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: httr, jsonlite, pacman, dplyr
+RoxygenNote: 7.2.0
