@@ -14,5 +14,5 @@ if(!require("pacman")) install.packages("pacman");pacman::p_load(
 
 1 - #Usar o formato de data = "2022-06-14"
 
-2 - det<-ETo_BR(date=Sys.Date()-1) #Para fazer com a data de ontem
+2 - det <- ETo_BR(date=Sys.Date()-1) #Para fazer com a data de ontem
 
