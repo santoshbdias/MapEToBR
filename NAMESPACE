@@ -2,3 +2,4 @@
 
 export(ETo_BR)
 export(ExtrValRast)
+export(rad.extr)
