@@ -21,14 +21,15 @@ if(!require("pacman")) install.packages("pacman");pacman::p_load(
 #Base stacks rasters criado pelo códiog Create_Base_Raster.R
 
 stacktotal <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredTotal.grd')
-
 stackmonth <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredMes.grd')
-
 stackday <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredDay.grd')
 
 
 #Usar o formato de data = "2022-06-14"
+
 datfram <- ETo_BR(date=Sys.Date()-1)#Para fazer com a data de ontem
+
+
 
 dftv <- ExtrValRast(datfram,stackday,stackmonth,stacktotal)
 
