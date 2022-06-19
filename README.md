@@ -12,7 +12,8 @@ if(!require("pacman")) install.packages("pacman");pacman::p_load(
 
 # Exemplo
 
-´´´
+```
+
 rm(list = ls()); gc(); removeTmpFiles(h=0)
 
 if(!require("pacman")) install.packages("pacman");pacman::p_load(
@@ -32,4 +33,5 @@ datfram <- ETo_BR(date=Sys.Date()-1)#Para fazer com a data de ontem
 
 
 dftv <- ExtrValRast(datfram,stackday,stackmonth,stacktotal)
-´´´
+
+```
