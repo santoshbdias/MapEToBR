@@ -1,7 +1,7 @@
 Package: MapEToBR
 Type: Package
 Title: Automatically model ETo FAO 56 map for all of Brazil for a given day
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(person(given = "Santos H.",
                     family = "B Dias",
                     role = c("aut","cre"),
