@@ -15,7 +15,6 @@
 #'
 #'
 
-
 inc.sec.dy.rad.extr <- function(datfram,stackday,shapflbr) {
 
   date <- as.Date(datfram$Data[10])
