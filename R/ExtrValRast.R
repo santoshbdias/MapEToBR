@@ -32,13 +32,12 @@ ExtrValRast <- function(datfram,stackday,stackmonth,stacktotal) {
   mess <- format(date,"%m")
   bspredM <- raster::subset(stackmonth, grep(mess, names(stackmonth), value = T))
 
-  diad <- format(date,"%m%d")
-  bspredD <- raster::subset(stackday, grep(diad, names(stackday), value = T))
+  bspredD <- stackday
 
   vto <- terra::extract(stacktotal, dg)
   vmes <- terra::extract(bspredM, dg)
   vday <- terra::extract(bspredD, dg)
-  
+
   dfmodel<-cbind(datfram,vto,vmes,vday)
 
   rm(date,diad,mess,dg,bspredM,bspredD,vto,vmes,vday)

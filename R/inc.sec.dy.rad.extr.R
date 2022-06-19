@@ -15,7 +15,18 @@
 #'
 #'
 
-rad.extr <- function(datfram,stackday,shapflbr) {
+
+if(!require("pacman")) install.packages("pacman");pacman::p_load(
+  raster, rgdal, terra, MapEToBR)
+
+stackday <- raster::stack('D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredDay.grd')
+
+datfram <- ETo_BR(date=Sys.Date()-1)
+
+shapflbr <- readOGR(dsn = 'D:/OneDrive/Doutorado/Tese/Base_Dados_BR/Shape_Brasil/Shape_Brasil.shp')
+
+
+inc.sec.dy.rad.extr <- function(datfram,stackday,shapflbr) {
 
   date <- as.Date(datfram$Data[10])
 
@@ -40,7 +51,7 @@ rad.extr <- function(datfram,stackday,shapflbr) {
 
   names(qo_br)<-'Latitude'
 
-  N=2*Hn/15#N? de Horas efetivo de brilho solar com latitude
+  #N=2*Hn/15#N? de Horas efetivo de brilho solar com latitude
 
   #Nascer do Sol = 12 ? N/2
   #P?r do Sol = 12 + N/2
@@ -50,9 +61,7 @@ rad.extr <- function(datfram,stackday,shapflbr) {
 
   bsprdy <- raster::stack(bspredD,qo_br)
 
-  plot(bsprdy)
-
-  rm(bspredD,Hn,lat,N,Qo,stackday,date,dD2,diad,dj,lamb,qo_br)
+  rm(bspredD,Hn,lat,Qo,stackday,date,dD2,diad,dj,lamb,qo_br)
 
   return(bsprdy)
 }
