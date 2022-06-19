@@ -38,9 +38,11 @@ ExtrValRast <- function(datfram,stackday,stackmonth,stacktotal) {
   vmes <- terra::extract(bspredM, dg)
   vday <- terra::extract(bspredD, dg)
 
-  dfmodel<-cbind(datfram,vto,vmes,vday)
+  dfmodel <- cbind(datfram,vto,vmes,vday)
 
-  rm(date,diad,mess,dg,bspredM,bspredD,vto,vmes,vday)
+  dfmodel <- as.data.frame(dfmodel)
+
+  rm(date,mess,dg,bspredM,bspredD,vto,vmes,vday)
 
   return(dfmodel)
 }
