@@ -53,6 +53,8 @@ ETo_BR <- function(date) {
                                'Rs','u2','Patm','RH_max','RH_min','Altitude','Data','Situacao')) %>%
     na.omit()
 
+  df <- df[,-1]
+
   df<-as.data.frame(df); str(df)
   df <- mutate_at(df, vars(Altitude,Long), as.numeric)
   df <- mutate_at(df, vars(Data), as.Date)
