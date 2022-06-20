@@ -19,8 +19,7 @@ inc.sec.dy.rad.extr <- function(datfram,stackday,shapflbr) {
 
   date <- as.Date(datfram$Data[10])
 
-  dj <- as.POSIXlt(date, format = "%d%b%y")$yday
-
+  dj <- as.POSIXlt(date, format = "%d%b%y")$yday+1
 
   if(!require("pacman")) install.packages("pacman");pacman::p_load(
     raster, rgdal, terra)
