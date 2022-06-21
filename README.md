@@ -12,6 +12,8 @@ if(!require("pacman")) install.packages("pacman");pacman::p_load(
 
 # Exemplo
 
+Para refazer os passos do trabalho, faça o download dos rasters base pelo link: https://drive.google.com/drive/folders/1LGWMg4lvgPEQuVwWdr96gaYavRlOXVt3?usp=sharing
+
 ```
 rm(list = ls()); gc(); removeTmpFiles(h=0)
 
@@ -19,13 +21,25 @@ if(!require("pacman")) install.packages("pacman");pacman::p_load(
   raster, rgdal, terra, MapEToBR)
 
 #Base stacks rasters criado pelo códiog Create_Base_Raster.R
-stacktotal <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredTotal.grd')
-stackmonth <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredMes.grd')
-stackday <- raster::stack('D:/OneDrive/Doutorado/Tese/C_04_ETo_Diario/bspredDay.grd')
-
+stacktotal <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredTotal',
+                                 pattern = ".tif", full.names = TRUE, recursive = T))
+#Rasters de Latitude, Longitude, Elevação WorldClim e Bioclimaticas WorldClim
+stackmonth <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredMes',
+                                 pattern = ".tif", full.names = TRUE, recursive = T))
+#Rasters de dados mensais do WorldClim: temperatura mínima, temperatura máxima, temperatura média, precipitação, radiação solar, velocidade do vento, pressão de vapor de água.
+stackday <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredDay',
+                                 pattern = ".tif", full.names = TRUE, recursive = T))
+#Rasters diários, como média e desvio padrão da ETo e radiação extraterrestre
 
 #Usar o formato de data = "2022-06-14"
-datfram <- ETo_BR(date=Sys.Date()-1)#Para fazer com a data de ontem
+datfram <- ETo_BR(date=Sys.Date()-1)#Dados da ETo do Brasil para a data de ontem
 
-dftv <- ExtrValRast(datfram,stackday,stackmonth,stacktotal)#Arquivo para fazer treino dos modelos de AI
+shapflbr <- readOGR(dsn = 'D:/OneDrive/Doutorado/Tese/Base_Dados_BR/Shape_Brasil/Shape_Brasil.shp') #Carregar shapefile Brasil
+
+stackday <- inc.sec.dy.rad.extr(datfram,stackday,shapflbr)#Selecionar rasters do dia selecionado e criar raster da radiação extraterrestre para o determinado dia
+
+plot(stackday)#Conferir rasters selecionados.
+
+
+dftv <- ExtrValRast(datfram,stackday,stackmonth,stacktotal)#Extração dos valores dos rasters para as estações com dados neste dia. Arquivo para fazer treino dos modelos de AI
 ```
