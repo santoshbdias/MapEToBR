@@ -23,19 +23,19 @@ ETo_BR <- function(date) {
 
   df <- df %>% dplyr::select(c("DT_MEDICAO","DC_NOME","PRE_INS","VL_LATITUDE","UMD_MAX",
                                "UF","TEM_MAX","RAD_GLO","CD_ESTACAO","TEM_MIN","VL_LONGITUDE",
-                               "UMD_MIN","VEN_VEL","TEM_INS"))
+                               "UMD_MIN","VEN_VEL",'TEM_INS','CHUVA'))
   df <- mutate_at(df, vars(PRE_INS,VL_LATITUDE,UMD_MAX,TEM_MAX,RAD_GLO,TEM_MIN,
-                           VL_LONGITUDE,UMD_MIN,VEN_VEL,TEM_INS), as.numeric)
+                           VL_LONGITUDE,UMD_MIN,VEN_VEL,TEM_INS,CHUVA), as.numeric)
 
   df<-df %>%
     group_by(DC_NOME, DT_MEDICAO,CD_ESTACAO,VL_LATITUDE)%>%
     summarise(tmin = min(TEM_MIN), tmax = max(TEM_MAX),tmean = mean(TEM_INS),
               Rs = sum(RAD_GLO)/1000,u2 = mean(VEN_VEL),Patm = mean(PRE_INS),
-              RH_max = max(UMD_MAX),RH_min = min(UMD_MIN)) %>%
+              RH_max = max(UMD_MAX),RH_min = min(UMD_MIN), Chuva = sum(CHUVA)) %>%
     na.omit()
 
   names(df)<-c("Cid","Data","Cod_Estacao","Lat","tmin","tmax","tmean","Rs","u2",
-               "Patm","RH_max","RH_min")
+               "Patm","RH_max","RH_min",'Chuva')
 
   estaut<-GET('https://apitempo.inmet.gov.br/estacoes/T')
   estaut <- fromJSON(rawToChar(estaut$content), flatten = TRUE)
@@ -50,7 +50,7 @@ ETo_BR <- function(date) {
   rm(estaut)
 
   df <- df %>% dplyr::select(c('Cod_Estacao','Cidade','Estado','Lat','Long','tmin','tmax','tmean',
-                               'Rs','u2','Patm','RH_max','RH_min','Altitude','Data','Situacao')) %>%
+                               'Rs','u2','Patm','RH_max','RH_min','Altitude','Data','Situacao','Chuva')) %>%
     na.omit()
 
   df <- df[,-1]
@@ -100,7 +100,7 @@ ETo_BR <- function(date) {
                                  Rs=df$Rs, u2=df$u2,Patm=df$Patm, RH_max=df$RH_max,
                                  RH_min=df$RH_min, z=df$Altitude, date=df$Data)) %>%
     dplyr::select(c('Cod_Estacao','Cidade','Estado','Lat','Long','Altitude','Data','Situacao',
-                    'ETo'))
+                    'ETo','Chuva'))
 
   rm(df,daily_eto_FAO56)
   return(det)
