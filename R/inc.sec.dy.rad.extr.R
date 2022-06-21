@@ -35,7 +35,7 @@ inc.sec.dy.rad.extr <- function(datfram,stackday,shapflbr) {
 
   qo_br<-mask(crop(Qo, shapflbr),shapflbr)
 
-  names(qo_br)<-'Latitude'
+  names(qo_br)<-'RadExtraTer'
 
   #N=2*Hn/15#N? de Horas efetivo de brilho solar com latitude
 
