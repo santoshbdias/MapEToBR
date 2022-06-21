@@ -5,20 +5,24 @@ MapEToBR é um pacote de R que faz a modelagem da ETo para todo o Brasil de form
 Para instalar a última versão do pacote MapEToBR siga estes passos:
 
 1 - Instalar os pacotes necesários para iniciar as instalações:
-if(!require("pacman")) install.packages("pacman");pacman::p_load(
-  devtools)
+```
+install.packages(devtools)
+```
 
-2 - Instalar via github pacote MapEToBR devtools::install_github("santoshbdias/MapEToBR")
+2 - Instalar via github pacote MapEToBR
+```
+devtools::install_github("santoshbdias/MapEToBR")
+```
 
 # Exemplo
 
 Para refazer os passos do trabalho, faça o download dos rasters base pelo link: https://drive.google.com/drive/folders/1LGWMg4lvgPEQuVwWdr96gaYavRlOXVt3?usp=sharing
 
 ```
-rm(list = ls()); gc(); removeTmpFiles(h=0)
+rm(list = ls()); gc(); removeTmpFiles(h=0)#Limpar todas as variáveis e memória ocupada pelo R
 
 if(!require("pacman")) install.packages("pacman");pacman::p_load(
-  raster, rgdal, terra, MapEToBR)
+  raster, rgdal, terra, MapEToBR) #Instalar/carregar todos os pacotes necessários
 
 #Base stacks rasters criado pelo códiog Create_Base_Raster.R
 stacktotal <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredTotal',
