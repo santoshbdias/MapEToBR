@@ -10,10 +10,14 @@ Authors@R: c(person(given = "Santos H.",
             person(given = "Fabrício T.",
                     family = "Barbosa",
                     role = ("aut"),
-                    comment = c(ORCID = "0000-0000-0000-0000")))
+                    comment = c(ORCID = "0000-0000-0000-0000")),
+            person(given = "Roberto",
+                    family = "Filgueiras",
+                    role = c("aut"),
+                    comment = c(ORCID = "0000-0002-0186-8907")))
 Description: What the package does (one paragraph).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: httr, jsonlite, pacman, dplyr, terra
+Imports: httr, jsonlite, pacman, dplyr, terra, labgeo
 RoxygenNote: 7.2.0
