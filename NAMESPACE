@@ -3,3 +3,4 @@
 export(ETo_BR)
 export(ExtrValRast)
 export(inc.sec.dy.rad.extr)
+export(pred.raster.EToBR)
