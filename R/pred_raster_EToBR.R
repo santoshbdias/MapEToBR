@@ -17,7 +17,7 @@
 #'
 
 if(!require("pacman")) install.packages("pacman");pacman::p_load(
-  MapEToBR,raster)
+  MapEToBR)
 
 stacktotal <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredTotal',
                                  pattern = ".tif", full.names = TRUE, recursive = T))
@@ -38,63 +38,16 @@ inc.sec.dy.rad.extr <- function(date,stacktotal,stackmonth,stackday,shapflbr) {
 
   dftv <- dftv %>% na.omit()
 
+  df <- dftv[,-c(1,2,3,4,5,6,7,8,10)]
+
+  rm(datfram,dftv,stackdaii)
+
 
   return(bsprdy)
 }
 
 
 
-df <- dftv[,-c(1,2,3,4,5,6,7,8,10)]
-dd <- dftv[,c(9,1,2,3,4,5,6,7,8,10)]
-rm(dftv,stackdaii)
-
-import = recursive_feature_elimination(df, sizes = c(1:33),method_rfe = 'regression',cpu_cores=10,
-                                       metric='Rsquared',verbose=T)
-vat<-import$results
-vat2 <- cbind(as.data.frame(vat),data.frame(seed=rep(Sys.Date()-i, nrow(vat))),
-              data.frame(seed=rep(nrow(datfram), nrow(vat))), data.frame(seed=rep(i, nrow(vat))))
-names(vat2)
-
-names(vat2) <- c("Variables","RMSE","Rsquared","MAE","RMSESD","RsquaredSD","MAESD",
-                 "Data","N","i")
-
-if(exists('vatt')==T){vatt<-rbind(vatt, vat2)}else{vatt<-vat2}
-
-rm(vat,vat2)
-
-ipt<-import$variables
-
-iptg1 <- ipt %>%
-  group_by(var,Variables) %>%
-  count(var)
-
-iptg2 <- ipt %>%
-  group_by(var,Variables) %>%
-  summarise(over = mean(Overall))
-
-iptg <- full_join(iptg1,iptg2,by=c('var','Variables'))
-
-rm(import,ipt,iptg1,iptg2)
-
-iptg2 <- cbind(as.data.frame(iptg),data.frame(seed=rep(Sys.Date()-i, nrow(iptg))),
-               data.frame(seed=rep(nrow(datfram), nrow(iptg))),data.frame(seed=rep(i, nrow(iptg))))
-
-names(iptg2)
-names(iptg2) <- c("var","Variables","n","over","Data","N","i")
-
-if(exists('iptgt')==T){iptgt<-rbind(iptgt, iptg2)}else{iptgt<-iptg2}
-
-rm(iptg,iptg2,datfram)
-
-intrain = createDataPartition(df$ETo, p = 0.9, list = FALSE)
-
-treino = df[intrain,]
-valida = df[-intrain,]
-
-ddv <- dd[-intrain,]
-rm(dd)
-
-treino<-as.data.frame(treino)
 
 modelo_all <- run_models(treino, models= c("lm","rf","cubist",'gbm','gaussprRadial','bagEarth',
                                            'svmPoly','icr','pls'),
