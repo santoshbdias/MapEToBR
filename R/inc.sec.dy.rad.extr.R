@@ -33,7 +33,7 @@ inc.sec.dy.rad.extr <- function(datfram,stackday,shapflbr) {
   Hn=acos((-tan(lamb*pi/180)*tan(lat*pi/180)))*180/pi#Angulo zenital
   Qo=37.6*dD2*(pi/180*Hn*sin(lamb*pi/180)*sin(lat*pi/180)+cos(lamb*pi/180)*cos(lat*pi/180)*sin(Hn*pi/180))
 
-  qo_br<-mask(crop(Qo, shapflbr),shapflbr)
+  qo_br<- terra::mask(terra::crop(Qo, shapflbr),shapflbr)
 
   names(qo_br)<-'RadExtraTer'
 

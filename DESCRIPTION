@@ -15,5 +15,5 @@ Description: What the package does (one paragraph).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: httr, jsonlite, pacman, dplyr
+Imports: httr, jsonlite, pacman, dplyr, terra
 RoxygenNote: 7.2.0
