@@ -55,7 +55,7 @@ ETo_BR <- function(date) {
 
   df <- df[,-1]
 
-  df<-as.data.frame(df); str(df)
+  df<-as.data.frame(df)
   df <- mutate_at(df, vars(Altitude,Long), as.numeric)
   df <- mutate_at(df, vars(Data), as.Date)
 

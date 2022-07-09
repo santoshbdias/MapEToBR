@@ -21,6 +21,9 @@
 
 pred.raster.EToBR <- function(date,stacktotal,stackmonth,stackday,shapflbr,model) {
 
+  if(!require("pacman")) install.packages("pacman");pacman::p_load(
+    raster,rgdal,terra)
+
   datfram <- ETo_BR(date)
   stackdaii <- inc.sec.dy.rad.extr(datfram,stackday,shapflbr)
   dftv <- ExtrValRast(datfram,stackdaii,stackmonth,stacktotal)
@@ -31,7 +34,7 @@ pred.raster.EToBR <- function(date,stacktotal,stackmonth,stackday,shapflbr,model
 
   rm(datfram,dftv)
 
-  modelo_all <- run_models(df, models= model, formula = NULL,preprocess = NULL,
+  modelo_all <- labgeo::run_models(df, models= model, formula = NULL,preprocess = NULL,
                            nfolds = 10, repeats = NA, tune_length =5, cpu_cores = 8,
                            metric = "Rsquared",verbose = T)
 
@@ -39,7 +42,7 @@ pred.raster.EToBR <- function(date,stacktotal,stackmonth,stackday,shapflbr,model
   mess <- format(date,"%m")
   bspredM <- terra::subset(stackmonth, grep(mess, names(stackmonth), value = T))
 
-  predicao <- stack(stacktotal,bspredM,stackdaii)
+  predicao <- raster::stack(stacktotal,bspredM,stackdaii)
 
   rm(bspredM,stackdaii,df)
 
@@ -47,8 +50,6 @@ pred.raster.EToBR <- function(date,stacktotal,stackmonth,stackday,shapflbr,model
     progress = "text")
 
   rm(modelo_all,predicao,mess)
-
-  plot(RasterETo)
 
   return(RasterETo)
 }

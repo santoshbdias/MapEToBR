@@ -40,12 +40,19 @@ stackmonth <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR
 stackday <-  raster::stack(dir(path ='D:/OneDrive/Doutorado/Tese/Base_Dados_BR/bspredDay',
                                  pattern = ".tif", full.names = TRUE, recursive = T))
 
+#Carregar shapefile Brasil
+shapflbr <- readOGR(dsn = 'D:/OneDrive/Doutorado/Tese/Base_Dados_BR/Shape_Brasil/Shape_Brasil.shp')
+
+
+#Modelagem do raster de ETo para o Brasil
+#Usar o formato de data = "2022-06-14"
+#Modelos do caret
+RastEToBR <- pred.raster.EToBR((Sys.Date()-1), stacktotal, stackmonth, stackday, shapflbr, 'rf')
+
+#Outras funções:
 #Usar o formato de data = "2022-06-14"
 #Dados da ETo do Brasil para a data de ontem
 datfram <- ETo_BR(date=Sys.Date()-1)
-
-#Carregar shapefile Brasil
-shapflbr <- readOGR(dsn = 'D:/OneDrive/Doutorado/Tese/Base_Dados_BR/Shape_Brasil/Shape_Brasil.shp')
 
 #Selecionar rasters do dia selecionado e criar raster da radiação extraterrestre para o determinado dia
 stackday <- inc.sec.dy.rad.extr(datfram,stackday,shapflbr)
@@ -55,4 +62,5 @@ plot(stackday)
 
 #Extração dos valores dos rasters para as estações com dados neste dia. Arquivo para fazer treino dos modelos de AI
 dftv <- ExtrValRast(datfram,stackday,stackmonth,stacktotal)
+
 ```
