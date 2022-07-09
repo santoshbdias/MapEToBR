@@ -49,6 +49,10 @@ shapflbr <- readOGR(dsn = 'D:/OneDrive/Doutorado/Tese/Base_Dados_BR/Shape_Brasil
 #Modelos do caret
 RastEToBR <- pred.raster.EToBR((Sys.Date()-1), stacktotal, stackmonth, stackday, shapflbr, 'rf')
 
+#RasterE gerado pela função pred.raster.EToBR()
+#Latitude e longitude pode ser um conjunto de dados (c()), ou coluna de um data frame df$Latitude e df$Longitude
+ETos <- ExtrValCoord(RastEToBR, Latitude, Longitude)
+
 #Outras funções:
 #Usar o formato de data = "2022-06-14"
 #Dados da ETo do Brasil para a data de ontem
