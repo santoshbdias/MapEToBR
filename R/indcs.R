@@ -54,8 +54,8 @@ rmse <- function (prd, obs) {#Root Mean Square Error
   }
 
 nrmse <- function (prd, obs) {#Normalized Root Mean Square Error
-  cte <- mean(obs)
-  nrmse <- (sqrt( mean( (obs - prd)^2) )/cte)*100
+  cte <- sd(obs)
+  nrmse <- (sqrt(mean((obs - prd)^2))/cte)*100
   return(nrmse)
   }
 
