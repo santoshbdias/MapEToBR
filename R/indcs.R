@@ -34,7 +34,7 @@ mae <- function (prd, obs){#Mean Absolute Error
   }
 
 mape <- function (prd, obs){#Mean Absolute Percentage Error
-  mape <- mean( abs((obs - prd)/obs), na.rm = TRUE)
+  mape <- mean( abs(((obs - prd)/obs)*100), na.rm = TRUE)
   return(mape)
   }
 
@@ -44,7 +44,7 @@ me <- function (prd, obs){#Mean Error
   }
 
 mpe <- function (prd, obs){#Mean Percentage Error
-  mpe <- mean(((obs - prd)/obs), na.rm = TRUE)
+  mpe <- mean((((obs - prd)/obs)*100), na.rm = TRUE)
   return(mpe)
   }
 
@@ -88,9 +88,5 @@ indcs <-as.data.frame(cbind(d,mae,mape,me,mpe,rmse,nrmse,NSE,mbe))
 
 return(indcs)
 }
-
-
-
-
 
 
